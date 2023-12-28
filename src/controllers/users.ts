@@ -1,5 +1,5 @@
 import express from "express";
-import { getUsers } from "./../models/userModel";
+import {deleteUserById, getUsers} from "../models/userModel";
 
 export const getAllUsers = async (
   req: express.Request,
@@ -14,3 +14,15 @@ export const getAllUsers = async (
     return res.sendStatus(400);
   }
 };
+
+export const deleteUser = async (req: express.Request, res: express.Response) => {
+  try{
+    const { id } = req.params;
+
+    const deleteUser = await deleteUserById(id);
+    return res.json(deleteUser);
+  } catch(error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+}
